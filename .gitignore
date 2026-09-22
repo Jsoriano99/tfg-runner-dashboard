@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Secrets — never commit
+.env
+.env.*
+
+# Local data — never commit raw activity data
+data/
+*.db
+*.sqlite
+
+# Windows download metadata (junk)
+*:Zone.Identifier
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+# Local AI runtime state
+.atl/
+
+#instrucciones IA
+AGENTS.md 
