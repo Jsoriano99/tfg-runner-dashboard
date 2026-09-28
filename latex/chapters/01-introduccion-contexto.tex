@@ -1,0 +1,81 @@
+\chapter{Introducción y contexto}
+\label{ch:introduccion}
+
+% Real draft grounded on the owner's approved TFG proposal. No invented
+% citations: bibliographic support that still needs a source is marked with
+% \pendiente{citar: ...}.
+
+\section{Planteamiento del problema}
+\label{sec:planteamiento}
+
+En la actualidad, el uso de datos en el ámbito deportivo ha adquirido una
+relevancia creciente para mejorar el rendimiento, prevenir lesiones y optimizar
+los entrenamientos. El presente Trabajo Fin de Grado propone el desarrollo de un
+dashboard inteligente orientado al análisis del rendimiento de corredores,
+integrando métricas derivadas de fuentes de datos deportivas como el ritmo, la
+frecuencia cardíaca, la distancia, la potencia o la cadencia. El proyecto
+pretende ofrecer una herramienta de apoyo a la toma de decisiones basada en
+datos, capaz de identificar patrones de evolución y de proponer mejoras en los
+planes de entrenamiento.
+
+El problema que motiva el trabajo puede formularse así: el corredor y su
+entrenador disponen hoy de una gran cantidad de datos, pero no siempre de los
+medios para interpretarlos de forma personalizada y sistemática. Convertir ese
+volumen de registros en decisiones de entrenamiento fundamentadas es,
+precisamente, el objetivo del proyecto.
+
+\section{Contexto}
+\label{sec:contexto}
+
+El auge de los dispositivos \emph{wearables} (Garmin, Polar, Suunto) y de
+plataformas como Strava o TrainingPeaks ha impulsado la generación masiva de
+datos de rendimiento deportivo. Sin embargo, la mayoría de estos sistemas
+presentan interfaces cerradas o de uso limitado para el análisis personalizado.
+El desarrollo de dashboards a medida mediante herramientas como Power BI, Python
+(Dash, Streamlit) o React permite crear soluciones adaptadas a las necesidades
+del usuario final, integrando múltiples fuentes y técnicas de análisis
+predictivo.
+
+Este trabajo se enmarca dentro de las metodologías de \emph{Data-Driven
+Management} aplicadas al contexto deportivo, esto es, el uso sistemático de
+datos y de análisis cuantitativo para respaldar decisiones
+\cite{provost2013,davenport2010}. La generalización del registro automático de
+actividad ha hecho que ese enfoque sea hoy viable también para deportistas
+individuales y no solo para organizaciones \cite{marr2016}.
+
+\pendiente{citar: estudios revisados por pares sobre el uso de wearables y
+plataformas deportivas en poblaciones de corredores aficionados y de
+competición.}
+
+\section{Motivación}
+\label{sec:motivacion}
+
+La motivación del trabajo es doble. Por un lado, la cantidad y la variedad de
+métricas disponibles (ritmo, frecuencia cardíaca, potencia, cadencia, distancia)
+permiten caracterizar la evolución del corredor con un detalle que antes no era
+accesible. Por otro lado, el tratamiento estadístico y el aprendizaje automático
+ofrecen herramientas consolidadas para extraer patrones y para construir
+predicciones a partir de esos registros \cite{montgomery2018,geron2023}.
+
+La oportunidad, por tanto, no está en generar más datos, sino en integrarlos y
+presentarlos de forma que resulten accionables tanto para un corredor como para
+un entrenador que gestiona varios atletas.
+
+\pendiente{citar: literatura específica sobre análisis de rendimiento en carrera
+y sobre el paso de la métrica aislada a la decisión de entrenamiento.}
+
+\section{Relevancia}
+\label{sec:relevancia}
+
+La relevancia del proyecto se apoya en tres ideas. En primer lugar, existe una
+laguna entre los datos que ya se registran y su aprovechamiento efectivo para la
+toma de decisiones. En segundo lugar, las soluciones actuales tienden a estar
+cerradas o limitadas al análisis personalizado, de modo que una herramienta
+adaptable cubre una necesidad real. Por último, la incorporación de un módulo
+analítico y predictivo permite pasar de la descripción retrospectiva a la
+estimación de la progresión del rendimiento, lo que aporta valor tanto al
+deportista individual como al entrenador o al equipo.
+
+\pendiente{citar: trabajos que documenten la brecha entre recogida de datos y
+explotación en plataformas deportivas comerciales, para sostener la afirmación
+anterior con evidencia.}

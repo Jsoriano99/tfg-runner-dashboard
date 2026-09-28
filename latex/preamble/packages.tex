@@ -1,0 +1,57 @@
+% ---------------------------------------------------------------------------
+% Packages that are NOT purely typographic.
+%
+% ARCHITECTURE NOTE: every typographic setting (page geometry, fonts, line
+% spacing, paragraph spacing, headers/footers, chapter styling) lives in
+% preamble/format.tex. That file is the SINGLE point of change for the format
+% of the memoria. For this reason the font packages and microtype are loaded
+% there on purpose, not here.
+% ---------------------------------------------------------------------------
+
+% --- Encoding and language -------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla,es-noquoting]{babel}
+
+% --- Text, tables and figures ----------------------------------------------
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tikz}
+\usepackage{appendix}
+\usepackage{datetime2}
+\usepackage{xurl}
+
+% --- Layout packages whose SETTINGS live in format.tex ----------------------
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{emptypage}
+
+% ---------------------------------------------------------------------------
+% Bibliography. STYLE IS STILL OPEN (see ADR-008).
+%   - style=apa   -> currently active (APA 7th). biblatex-apa is installed.
+%   - style=ieee  -> one-word change. biblatex-ieee is installed.
+% Both packages are available in this TeX Live install, so switching the
+% citation style is literally editing the `style=` value below.
+% ---------------------------------------------------------------------------
+\usepackage[backend=biber,style=apa]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{bibliografia.bib}
+
+% hyperref MUST be loaded last among packages.
+\usepackage[hidelinks,pdfusetitle]{hyperref}

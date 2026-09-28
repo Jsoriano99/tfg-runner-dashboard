@@ -1,0 +1,28 @@
+# LaTeX build artifacts (never tracked).
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+*.loa
+*.xdv
+build/
+
+# Generated PDFs are ignored by default.
+# If the owner wants to track the final PDF in Git, delete or comment out the
+# line below (and remember that a tracked binary PDF creates noisy diffs).
+main.pdf

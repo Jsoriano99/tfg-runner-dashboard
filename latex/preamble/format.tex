@@ -1,0 +1,61 @@
+% ===========================================================================
+% FORMAT - SINGLE POINT OF CHANGE FOR THE WHOLE DOCUMENT
+% ---------------------------------------------------------------------------
+% Everything typographic lives here: page geometry, fonts, line spacing,
+% paragraph spacing, headers/footers, chapter title styling, TOC styling and
+% caption styling. To restyle the memoria, edit THIS file only.
+% ===========================================================================
+
+% --- Fonts: Times-like, standard for Spanish university memories -----------
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+
+% --- Micro-typography: character protrusion and font expansion -------------
+\usepackage{microtype}
+
+% --- Page geometry ---------------------------------------------------------
+\geometry{
+  a4paper,
+  left=3cm,
+  right=2.5cm,
+  top=3cm,
+  bottom=2.5cm,
+  headheight=15pt
+}
+
+% --- Line spacing ----------------------------------------------------------
+\onehalfspacing
+
+% --- Paragraph spacing -----------------------------------------------------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6\baselineskip}
+
+% --- Chapter and section title styling -------------------------------------
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}
+  {\chaptertitlename\ \thechapter}
+  {20pt}
+  {\Huge}
+\titlespacing*{\chapter}{0pt}{-30pt}{30pt}
+
+% --- Headers and footers ---------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% --- Table of contents styling ---------------------------------------------
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchappagefont}{\bfseries}
+
+% --- Caption styling -------------------------------------------------------
+\captionsetup{font=small,labelfont=bf}
+
+% --- List spacing ----------------------------------------------------------
+\setlist{itemsep=0.2\baselineskip,parsep=0pt,topsep=0.4\baselineskip}

@@ -1,0 +1,37 @@
+% !TeX program = pdflatex
+% ---------------------------------------------------------------------------
+% TFG memoria - main entry point.
+% Engine: pdflatex        Bibliography backend: biber (biblatex)
+% Build:  latexmk -pdf main.tex
+% ---------------------------------------------------------------------------
+\documentclass[12pt,a4paper,oneside]{book}
+
+\input{preamble/metadata}
+\input{preamble/packages}
+\input{preamble/format}
+\input{preamble/commands}
+
+\begin{document}
+
+\frontmatter
+\input{preamble/portada}
+\input{frontmatter/declaracion-originalidad}
+\input{frontmatter/resumen}
+\tableofcontents
+
+\mainmatter
+\include{chapters/01-introduccion-contexto}
+\include{chapters/02-objetivos}
+\include{chapters/03-antecedentes}
+\include{chapters/04-analisis-problema}
+\include{chapters/05-diseno}
+\include{chapters/06-conclusiones}
+
+\appendix
+\include{appendices/A-manual-usuario}
+\include{appendices/B-manual-codigo}
+
+\backmatter
+\printbibliography
+
+\end{document}

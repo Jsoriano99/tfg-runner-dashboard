@@ -1,0 +1,94 @@
+\section{Registro de decisiones de diseño}
+\label{sec:registro-decisiones}
+
+La normativa de la Escuela Politécnica Superior de Córdoba exige justificar las
+decisiones adoptadas y evaluar los riesgos asociados a ellas
+\cite{reglamento2024,guiaGII2025}. Este registro recoge cada decisión en el
+momento en que se toma, en lugar de reconstruirla al final del trabajo. Cada
+entrada documenta el contexto, las alternativas consideradas, la decisión, sus
+consecuencias, los riesgos y su estado.
+
+\begin{adr}{ADR-001}{Stack tecnológico principal: Python + Dash de extremo a extremo}{2026-09-28}
+\adrfield{Contexto}{El TFG es un trabajo aplicado de análisis de datos de rendimiento de corredores. Debe cubrir ingesta, análisis, modelado predictivo y visualización con recursos y tiempo limitados (12 ECTS).}
+\adrfield{Alternativas consideradas}{(a) Python + Dash de extremo a extremo; (b) Python para el análisis y Power BI para el dashboard; (c) JavaScript/React + Chart.js con un backend aparte; (d) Streamlit.}
+\adrfield{Decisión}{Python + Dash, con Pandas, scikit-learn, statsmodels y Plotly.}
+\adrfield{Consecuencias}{Un único lenguaje desde la ingesta hasta la interfaz; el esfuerzo se concentra en el análisis, que es el núcleo intelectual del TFG. Se descarta Power BI por su menor control y por sacar la lógica del repositorio. Se descarta React por duplicar lenguajes y añadir plomería.}
+\adrfield{Riesgos}{Dash es menos flexible en interfaz que un framework de frontend; acoplamiento a Plotly para los gráficos.}
+\adrfield{Estado}{Aceptada.}
+\adrfield{Referencias}{Decisión registrada en \texttt{AGENTS.md} del repositorio.}
+\end{adr}
+
+\begin{adr}{ADR-002}{Fuente de datos: API de Strava en primer lugar, datasets simulados como respaldo}{2026-09-28}
+\adrfield{Contexto}{Se necesitan datos reales de actividad (ritmo, frecuencia cardíaca, distancia, potencia, cadencia).}
+\adrfield{Alternativas consideradas}{(a) API de Strava; (b) Garmin Connect; (c) datasets públicos simulados; (d) datos propios exportados manualmente.}
+\adrfield{Decisión}{Strava API primero; datasets simulados como respaldo para desarrollo y pruebas; Garmin solo si llega a ser necesario.}
+\adrfield{Consecuencias}{Datos reales y variados; obliga a resolver OAuth y límites de peticiones; los tests nunca tocan la red.}
+\adrfield{Riesgos}{Dependencia de términos de uso y límites de la API; posible falta de acceso a datos propios suficientes; el respaldo simulado debe ser realista y documentado para no falsear resultados.}
+\adrfield{Estado}{Aceptada.}
+\adrfield{Referencias}{\texttt{AGENTS.md}; propuesta de TFG (Recursos previstos).}
+\end{adr}
+
+\begin{adr}{ADR-003}{Almacenamiento: SQLite en desarrollo con esquema portable a PostgreSQL}{2026-09-28}
+\adrfield{Contexto}{El TFG necesita persistencia de actividades y métricas sin añadir infraestructura que consuma tiempo.}
+\adrfield{Alternativas consideradas}{(a) SQLite; (b) PostgreSQL; (c) ficheros planos (CSV/Parquet); (d) base de datos en la nube.}
+\adrfield{Decisión}{SQLite en desarrollo, manteniendo el esquema relacional portable a PostgreSQL.}
+\adrfield{Consecuencias}{Cero configuración, un único fichero, reproducible y versionable al margen del repositorio; la portabilidad exige evitar dialectos específicos.}
+\adrfield{Riesgos}{SQLite no soporta concurrencia de escritura; migrar a PostgreSQL puede revelar incompatibilidades si se usan extensiones propias.}
+\adrfield{Estado}{Aceptada.}
+\adrfield{Referencias}{\texttt{AGENTS.md}.}
+\end{adr}
+
+\begin{adr}{ADR-004}{Metodología de desarrollo: TDD con pytest, alcance de tests unitarios}{2026-09-28}
+\adrfield{Contexto}{El TFG debe ser reproducible y sus números verificables; se descarta SDD por coste/beneficio en un trabajo individual.}
+\adrfield{Alternativas consideradas}{(a) TDD (Red--Green--Refactor) con pytest; (b) SDD con artefactos de especificación; (c) desarrollo sin tests.}
+\adrfield{Decisión}{TDD con pytest, ciclo Red--Green--Refactor, alcance de tests unitarios; tests de integración solo si un problema real lo exige y previo acuerdo.}
+\adrfield{Consecuencias}{Las fórmulas quedan verificadas contra valores calculados a mano; el autor escribe los tests y el código, con el agente como revisor; mayor coste inicial.}
+\adrfield{Riesgos}{Disciplina requerida; riesgo de tests acoplados a la implementación (deben verificar comportamiento, no implementación); los tests nunca usan red, datos reales ni la base de datos real.}
+\adrfield{Estado}{Aceptada.}
+\adrfield{Referencias}{\texttt{AGENTS.md}.}
+\end{adr}
+
+\begin{adr}{ADR-005}{Entorno de desarrollo aislado con \texttt{venv} (Python 3.12.3)}{2026-09-28}
+\adrfield{Contexto}{Ubuntu 24.04 aplica PEP 668, por lo que \texttt{pip install} global falla por diseño.}
+\adrfield{Alternativas consideradas}{(a) \texttt{venv}; (b) \texttt{conda}; (c) \texttt{pipx}; (d) \texttt{--break-system-packages}.}
+\adrfield{Decisión}{Entorno virtual \texttt{.venv} en la raíz del repositorio con Python 3.12.3, aislado del sistema (\texttt{include-system-site-packages = false}).}
+\adrfield{Consecuencias}{Dependencias reproducibles y aisladas; \texttt{.venv} queda fuera del control de versiones.}
+\adrfield{Riesgos}{Obliga a activar el entorno antes de ejecutar; la versión de dependencias debe fijarse en \texttt{requirements.txt}.}
+\adrfield{Estado}{Aceptada.}
+\adrfield{Referencias}{\texttt{AGENTS.md}.}
+\end{adr}
+
+\begin{adr}{ADR-006}{Control de versiones y flujo de trabajo: Git + GitHub con commits convencionales}{2026-09-28}
+\adrfield{Contexto}{El repositorio forma parte de la presencia pública del TFG y debe reflejar su estado.}
+\adrfield{Alternativas consideradas}{(a) Git + GitHub público; (b) repositorio privado; (c) sin control de versiones.}
+\adrfield{Decisión}{Git + GitHub, commits convencionales en inglés e imperativos, modelo de ramas \texttt{main} / \texttt{feat/<nombre>} / \texttt{fix/<nombre>} / \texttt{docs/<nombre>}, flujo rama $\rightarrow$ commits $\rightarrow$ push $\rightarrow$ pull request $\rightarrow$ merge.}
+\adrfield{Consecuencias}{Trazabilidad y evidencia del trabajo; el PR actúa como revisión incluso en solitario; nunca se suben secretos ni datos crudos.}
+\adrfield{Riesgos}{Riesgo de publicar datos personales o secretos si se descuida \texttt{.gitignore}; la historia compartida no se reescribe nunca.}
+\adrfield{Estado}{Aceptada.}
+\adrfield{Referencias}{\texttt{AGENTS.md}.}
+\end{adr}
+
+\begin{adr}{ADR-007}{Tipología del TFG y normativa aplicable}{2026-09-28}
+\adrfield{Contexto}{El TFG es de tipo aplicado y debe ajustarse a la normativa de la EPSC.}
+\adrfield{Alternativas consideradas}{Las cuatro tipologías del Reglamento de TFG de la EPSC.}
+\adrfield{Decisión}{Tipología b) ``Análisis y resolución de casos prácticos reales en el ámbito de la ingeniería'', que se materializa en un proyecto ``llave en mano'' que incluye el desarrollo de la solución. Normativa de referencia: Reglamento 24/2024 de TFG de la EPSC, Guía de desarrollo del TFG del Grado en Ingeniería Informática 2025/26 y guía docente de la asignatura.}
+\adrfield{Consecuencias}{La memoria debe seguir el índice mínimo de esa tipología (Introducción y contexto; Objetivos; Antecedentes; Análisis del problema; Diseño; Conclusiones; Bibliografía) más Manual de usuario y Manual de código.}
+\adrfield{Riesgos}{La normativa no fija formato tipográfico ni extensión, por lo que esos criterios deben confirmarse con el tutor; los aspectos formales suponen el 20~\% de la calificación.}
+\adrfield{Estado}{Aceptada.}
+\adrfield{Referencias}{\cite{reglamento2024,guiaGII2025}.}
+\end{adr}
+
+\begin{adr}{ADR-008}{Cadena de herramientas de la memoria: LaTeX con \texttt{latexmk}, \texttt{biber} y \texttt{biblatex}}{2026-09-28}
+\adrfield{Contexto}{La memoria es un entregable central que debe ser reproducible y mantenible durante todo el TFG.}
+\adrfield{Alternativas consideradas}{(a) LaTeX con \texttt{latexmk} + \texttt{biber} + \texttt{biblatex}; (b) procesador de textos (Word/LibreOffice); (c) Markdown con conversión a PDF; (d) Typst.}
+\adrfield{Decisión}{LaTeX con \texttt{latexmk} como driver, \texttt{biber} y \texttt{biblatex} para la bibliografía, un fichero por capítulo y todo el formato aislado en \texttt{preamble/format.tex}.}
+\adrfield{Consecuencias}{Control total del formato, numeración y referencias cruzadas automáticas, contenido versionable como texto plano y trazable en Git; exige aprender LaTeX.}
+\adrfield{Riesgos}{Mayor curva de aprendizaje; el estilo de cita (APA frente a IEEE) queda abierto y debe decidirse; si el tutor exige una plantilla propia, el formato debe poder cambiarse desde un único fichero.}
+\adrfield{Estado}{Aceptada (con una decisión pendiente: el estilo de cita).}
+\adrfield{Referencias}{\texttt{AGENTS.md}.}
+\end{adr}
+
+\pendiente{el estilo de cita (APA frente a IEEE) continúa sin decidir. Ambos
+paquetes están instalados; el cambio consiste en modificar el valor
+\texttt{style=} en \texttt{preamble/packages.tex}. Debe confirmarse con el tutor
+y actualizar este registro (ADR-008) cuando se decida.}

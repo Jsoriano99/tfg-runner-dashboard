@@ -1,0 +1,51 @@
+% ---------------------------------------------------------------------------
+% Custom macros and environments used across the memoria.
+% ---------------------------------------------------------------------------
+
+% --- Pending-work marker ---------------------------------------------------
+% Renders in bold red between brackets so that pending work is impossible to
+% miss in the PDF. NOTE: EVERY \pendiente{...} must be resolved and removed
+% before the final submission of the memoria.
+\newcommand{\pendiente}[1]{\textcolor{red}{\textbf{[PENDIENTE: #1]}}}
+
+% --- ADR (Architecture Decision Record) environment ------------------------
+% Usage:
+%   \begin{adr}{ADR-001}{Título de la decisión}{2026-09-28}
+%     \adrfield{Contexto}{...}
+%     \adrfield{Alternativas consideradas}{...}
+%     \adrfield{Decisión}{...}
+%     \adrfield{Consecuencias}{...}
+%     \adrfield{Riesgos}{...}
+%     \adrfield{Estado}{...}
+%     \adrfield{Referencias}{...}
+%   \end{adr}
+%
+% Renders a numbered, titled and boxed block. See the decision register in
+% chapters/diseno/07-registro-decisiones.tex.
+\tcbuselibrary{breakable,skins}
+\newtcolorbox{adrbox}[1][]{
+  breakable,
+  enhanced,
+  colback=gray!4,
+  colframe=black!65,
+  boxrule=0.6pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
+  #1
+}
+\newenvironment{adr}[3]{%
+  \par\medskip
+  \begin{adrbox}
+  \begin{center}
+    \textbf{#1} --- \textit{#2}\\[2pt]
+    \small #3
+  \end{center}
+  \hrule
+  \smallskip
+}{%
+  \end{adrbox}
+  \par\medskip
+}
+\newcommand{\adrfield}[2]{\par\smallskip\noindent\textbf{#1.} #2\par}
